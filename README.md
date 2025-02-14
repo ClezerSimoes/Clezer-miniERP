@@ -16,6 +16,9 @@ Sugestões de melhoria são sempre bem-vindas!
 
 ##  Funcionalidades
 
+- Até o momento estou trabalhando na interface, não está funcional. 
+- Segue as funcionalidades que pretendo adicionar em breve:
+
 - Cadastro de clientes
 - Registro de pedidos
 - Listagem e gerenciamento de clientes e pedidos

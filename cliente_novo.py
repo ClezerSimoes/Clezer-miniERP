@@ -19,53 +19,68 @@ def janela_clienteNovo():
     """
     ## Campos 
 
+    fr_titulo1 = Frame(app, background="#fff")
+    fr_titulo1.place(x=0, y=10, width=1080, height=25)
+    titulo= Label(fr_titulo1, text= "CADASTRO DE CLIENTES", background="#fff", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo.pack(expand=0)
+
+    titulo_cliente= Label(app, text= "DADOS DO CLIENTE", background="#dde", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo_cliente.place(x=10, y=55)
+
+    titulo_endereco= Label(app, text= "DADOS DO ENDEREÇO", background="#dde", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo_endereco.place(x=515, y=55)
+
+    fr_cliente = Frame(app, background="#c8c8d9", borderwidth=2, relief="groove")
+    fr_cliente.place(x=10, y=80, width=500, height=500)
+
+    fr_endereco= Frame(app, background="#c8c8d9", borderwidth=2, relief="groove")
+    fr_endereco.place(x=515, y=80, width=555, height=500)
+
+
     separador = "___________________________________________________________________________"
+    ## CAMPO CLIENTE
 
-    Label(app, text="Nome:", background="#dde", foreground="#009", anchor=W).place(x=10, y=10, width=100, height=20)
-    interface_Nome= Entry(app)
-    interface_Nome.place(x=13, y=30, width=250, height=20)
+    Label(fr_cliente, text="Nome:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=5, width=165, height=20)
+    interface_Nome= Entry(fr_cliente)
+    interface_Nome.place(x=175, y=5, width=310, height=20)
 
-    Label(app, text="Documento CPF/CNPJ (Apenas Números):", background="#dde", foreground="#009", anchor=W).place(x=10, y=60, width=250, height=20)
-    interface_Documento= Entry(app)
-    interface_Documento.place(x=13, y=80, width=250, height=20)
+    Label(fr_cliente, text="CPF/CNPJ (Apenas Números):", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=35, width=165, height=20)
+    interface_Documento= Entry(fr_cliente)
+    interface_Documento.place(x=175, y=35, width=310, height=20)
 
-    Label(app, text="Telefone (Apenas Números):", background="#dde", foreground="#009", anchor=W).place(x=10, y=110, width=200, height=20)
-    interface_Fone= Entry(app)
-    interface_Fone.place(x=13, y=130, width=250, height=20)
+    Label(fr_cliente, text="Telefone (Apenas Números):", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=70, width=165, height=20)
+    interface_Fone= Entry(fr_cliente)
+    interface_Fone.place(x=175, y=70, width=310, height=20)
 
-    Label(app, text="E-mail:", background="#dde", foreground="#009", anchor=W).place(x=10, y=160, width=100, height=20)
-    interface_Email= Entry(app)
-    interface_Email.place(x=13, y=180, width=250, height=20)
+    Label(fr_cliente, text="E-mail:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=105, width=165, height=20)
+    interface_Email= Entry(fr_cliente)
+    interface_Email.place(x=175, y=105, width=310, height=20)
 
-    Label(app, text= separador, background="#dde", foreground="#009", anchor=W).place(x=10, y=200, width=250, height=20)
+    Label(fr_cliente, text="Obs:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=140, width=165, height=20)
+    interface_Obs= Text(fr_cliente)
+    interface_Obs.place(x=175, y=140, width=310, height=100)
 
-    Label(app, text="Endereço", background="#dde", foreground="#009", anchor=W).place(x=10, y=225, width=100, height=20)
+    ## CAMPO ENDEREÇO
 
-    Label(app, text="Rua:", background="#dde", foreground="#009", anchor=W).place(x=10, y=250, width=100, height=20)
-    interface_Rua= Entry(app)
-    interface_Rua.place(x=13, y=270, width=250, height=20)
+    Label(fr_endereco, text="Rua:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=5, width=140, height=20)
+    interface_Rua= Entry(fr_endereco)
+    interface_Rua.place(x=150, y=5, width=250, height=20)
 
-    Label(app, text="Num (Apenas Números):", background="#dde", foreground="#009", anchor=W).place(x=10, y=300, width=200, height=20)
-    interface_Num= Entry(app)
-    interface_Num.place(x=13, y=320, width=50, height=20)
+    Label(fr_endereco, text="Num (Apenas Números):", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=35, width=140, height=20)
+    interface_Num= Entry(fr_endereco)
+    interface_Num.place(x=150, y=35, width=50, height=20)
 
-    Label(app, text="Cidade:", background="#dde", foreground="#009", anchor=W).place(x=10, y=350, width=100, height=20)
-    interface_Cidade= Entry(app)
-    interface_Cidade.place(x=13, y=370, width=250, height=20)
+    Label(fr_endereco, text="Cidade:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=70, width=140, height=20)
+    interface_Cidade= Entry(fr_endereco)
+    interface_Cidade.place(x=150, y=70, width=250, height=20)
 
-    Label(app, text="Estado:", background="#dde", foreground="#009", anchor=W).place(x=10, y=400, width=100, height=20)
-    interface_Estado= Entry(app)
-    interface_Estado.place(x=13, y=420, width=250, height=20)
+    Label(fr_endereco, text="Estado:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=105, width=140, height=20)
+    interface_Estado= Entry(fr_endereco)
+    interface_Estado.place(x=150, y=105, width=250, height=20)
 
-    Label(app, text="CEP (Apenas Números):", background="#dde", foreground="#009", anchor=W).place(x=10, y=450, width=200, height=20)
-    interface_CEP= Entry(app)
-    interface_CEP.place(x=13, y=470, width=250, height=20)
-
-    Label(app, text= separador, background="#dde", foreground="#009", anchor=W).place(x=10, y=490, width=250, height=20)
-
-    Label(app, text="Obs:", background="#dde", foreground="#009", anchor=W).place(x=10, y=510, width=100, height=20)
-    interface_Obs= Text(app)
-    interface_Obs.place(x=13, y=530, width=250, height=100)
+    Label(fr_endereco, text="CEP (Apenas Números):", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=140, width=140, height=20)
+    interface_CEP= Entry(fr_endereco)
+    interface_CEP.place(x=150, y=140, width=250, height=20)
 
     ## Botões
 
@@ -125,7 +140,7 @@ def janela_clienteNovo():
         messagebox.showinfo("Cadastro", "Cliente cadastrado com sucesso!")
 
     btn_Salvar= Button(app, text="Salvar Cliente", command=gravar_Dados)
-    btn_Salvar.place(x=160, y=650, width=100, height=20)
+    btn_Salvar.place(x=970, y=650, width=100, height=20)
 
 
     def cancelar():
@@ -135,7 +150,7 @@ def janela_clienteNovo():
             app.quit()
 
     btn_Cancelar= Button(app, text="Cancelar", command=cancelar)
-    btn_Cancelar.place(x=13, y=650, width=80, height=20)
+    btn_Cancelar.place(x=880, y=650, width=80, height=20)
 
 
     app.mainloop()

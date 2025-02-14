@@ -11,6 +11,7 @@ import about
 import cliente_novo
 import cliente_delete
 import cliente_update
+import pedido_novo
 
 ## MAIN APP
 
@@ -32,15 +33,17 @@ def fun_about():
 def semcomando():
     print("Teste funcionando")
 
-def newClient():
+def new_client():
     cliente_novo.janela_clienteNovo()
 
-def updateClient():
+def update_client():
     cliente_update.janela_clienteUP()
 
-def deleteClient():
+def delete_client():
     cliente_delete.janela_deleteCliente()
 
+def new_order():
+    pedido_novo.janela_pedidoNovo()
 ## MENU
 
 menu_bar = Menu(main_app)
@@ -56,15 +59,15 @@ file_menu.add_command(label="Exit", command=semcomando)
 menu_bar.add_cascade(label="File", menu=file_menu)
 
 clients_menu = Menu(menu_bar, tearoff=0)
-clients_menu.add_command(label="New Client", command=newClient)
+clients_menu.add_command(label="New Client", command=new_client)
 clients_menu.add_command(label="Client List", command=semcomando)
-clients_menu.add_command(label="Update Client", command=updateClient)
+clients_menu.add_command(label="Update Client", command=update_client)
 clients_menu.add_separator()
-clients_menu.add_command(label="Delete Client", command=deleteClient)
+clients_menu.add_command(label="Delete Client", command=delete_client)
 menu_bar.add_cascade(label="Clients", menu=clients_menu)
 
 orders_menu = Menu(menu_bar, tearoff=0)
-orders_menu.add_command(label="New Order", command=semcomando)
+orders_menu.add_command(label="New Order", command=new_order)
 orders_menu.add_command(label="Order list", command=semcomando)
 orders_menu.add_command(label="Update Order", command=semcomando)
 orders_menu.add_separator()

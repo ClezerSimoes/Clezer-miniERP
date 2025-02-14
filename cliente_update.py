@@ -15,13 +15,6 @@ def janela_clienteUP():
     def sobrescrever():
         print ("Contato Atualizado")
 
-    ## INTERFACE Cliente
-
-    """ anchor =>   N = North 
-                    S = South
-                    E = East
-                    W = West
-    """
     ## Campos 
 
     separador = "_____________________________________________________________________________________________________________________"
@@ -96,38 +89,38 @@ def janela_clienteUP():
         atualizar_busca= Entry(sobres)
         atualizar_busca.place(x=10, y=80, width=300, height=20)
 
-        confirmar= Button(sobres, text="Atualizar Nome", command=sobrescrever, background="#dde")
+        confirmar= Button(sobres, text="Atualizar Nome", command=sobrescrever)
         confirmar.place(x=190, y=150, width=120, height=20)
 
-        cancelar= Button(sobres, text="Cancelar", command=sobrescrever, background="#dde")
+        cancelar= Button(sobres, text="Cancelar", command=sobrescrever)
         cancelar.place(x=10, y=150, width=80, height=20)
 
     
-    atualizar_nome= Button(fr_atualizar1, text="Atualizar nome", command=janela_sobrescrever, background="#dde")
+    atualizar_nome= Button(fr_atualizar1, text="Atualizar Nome", command=janela_sobrescrever)
     atualizar_nome.place(x=400, y=25, width=120, height=20)
 
-    atualizar_doc= Button(fr_atualizar1, text="Atualizar Documento", command=janela_sobrescrever, background="#dde")
+    atualizar_doc= Button(fr_atualizar1, text="Atualizar Documento", command=janela_sobrescrever)
     atualizar_doc.place(x=400, y=50, width=120, height=20)
 
-    atualizar_fone= Button(fr_atualizar1, text="Atualizar Telefone", command=sobrescrever, background="#dde")
+    atualizar_fone= Button(fr_atualizar1, text="Atualizar Telefone", command=sobrescrever)
     atualizar_fone.place(x=400, y=75, width=120, height=20)
 
-    atualizar_email= Button(fr_atualizar1, text="Atualizar E-mail", command=sobrescrever, background="#dde")
+    atualizar_email= Button(fr_atualizar1, text="Atualizar E-mail", command=sobrescrever)
     atualizar_email.place(x=400, y=100, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar rua", command=sobrescrever, background="#dde")
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Rua", command=sobrescrever)
     atualizar_endereco.place(x=400, y=135, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Número", command=sobrescrever, background="#dde")
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Número", command=sobrescrever)
     atualizar_endereco.place(x=400, y=160, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Cidade", command=sobrescrever, background="#dde")
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Cidade", command=sobrescrever)
     atualizar_endereco.place(x=400, y=185, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Estado", command=sobrescrever, background="#dde")
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Estado", command=sobrescrever)
     atualizar_endereco.place(x=400, y=210, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar CEP", command=sobrescrever, background="#dde")
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar CEP", command=sobrescrever)
     atualizar_endereco.place(x=400, y=235, width=120, height=20)
 
     app.mainloop()
