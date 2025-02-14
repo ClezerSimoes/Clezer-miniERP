@@ -1,9 +1,9 @@
 # mini sistema ERP
 
-    Sobre o Clezer - miniERP
+Sobre o Clezer - miniERP
 
 Este software está sendo desenvolvido com o objetivo de aprender e aprimorar minhas 
-habilidades em Python, Tkinter e SQLite. Trata-se de um gerenciador simples de pedidos 
+habilidades em Git, Python, Tkinter e SQLite. Trata-se de um gerenciador simples de pedidos 
 de vendas e cadastro de clientes.
 
 Além disso, também pretendo utilizá-lo em um dos programas de extensão da faculdade.
