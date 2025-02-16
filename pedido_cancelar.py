@@ -1,21 +1,22 @@
 from tkinter import *
 from tkinter import messagebox, ttk
-import datetime
 
 pedidos_cadastrados=[]
 
-def janela_pedidoNovo(root):
+def janela_pedidoCancelar(root):
     app = Toplevel(root)
     app.title ("Clezer - miniERP")
     app.geometry ("1080x720")
     app.configure(background="#dde")
+    app.columnconfigure(0, weight=1)  # Faz a coluna 0 expandir
+    app.rowconfigure(0, weight=1)     # Faz a linha 0 expandir
 
-    lista_opcao= ["ID", "Documento", "Nome"]
-    lista_status= ["Aberto","Concluído","Atrasado"]
+    lista_opcao= ["ID Pedido"]
+    lista_status= ["Aberto","Concluído","Atrasado", "Cancelado"]
     
     fr_titulo1 = Frame(app, background="#fff")
     fr_titulo1.place(x=0, y=10, width=1080, height=25)
-    titulo= Label(fr_titulo1, text= "CADASTRO DE NOVO PEDIDO", background="#fff", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo= Label(fr_titulo1, text= "CANCELAR PEDIDO", background="#fff", foreground="#009", font= ("Arial", 12, "bold"))
     titulo.pack(expand=0)
 
     fr_cliente = Frame(app, background="#c8c8d9", borderwidth=2, relief="groove")
@@ -32,14 +33,15 @@ def janela_pedidoNovo(root):
 
     ## CAMPO PESQUISA
 
-    Label(app, text="Pesquisar Cliente:", background="#dde", foreground="#009", anchor=W).place(x=10, y=50, width=100, height=20)
+    Label(app, text="Buscar Pedido:", background="#dde", foreground="#009", anchor=W).place(x=10, y=50, width=100, height=20)
     pedido_Pesquisa= Entry(app)
     pedido_Pesquisa.place(x=115, y=50, width=250, height=20)
-    pesquisa_opcao= ttk.Combobox(app, values=lista_opcao)
-    pesquisa_opcao.place(x=370, y=50, width=90, height=20)
-    pesquisa_opcao.set("ID")
+    Label(app, text="ID do Pedido", background="#fff", fg="black", anchor=W, borderwidth=1 ,relief="sunken").place(x=370, y=50, width=90, height=20)
+    # pesquisa_opcao= ttk.Combobox(app, values=lista_opcao)
+    # pesquisa_opcao.place(x=370, y=50, width=90, height=20)
+    # pesquisa_opcao.set("ID Pedido")
 
-    btn_pesquisa = Button(app, text="Buscar")
+    btn_pesquisa = Button(app, text="Pesquisar")
     btn_pesquisa.place(x=465, y=50, width=90, height=20)
 
     ## CAMPO CLIENTE
@@ -70,54 +72,49 @@ def janela_pedidoNovo(root):
 
     ## CAMPO PEDIDOS
 
-    Label(fr_pedido, text="Data (DD-MM-YYYY):", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=5, width=130, height=20)
+    Label(fr_pedido, text="Data:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=5, width=60, height=20)
     pedido_data= Entry(fr_pedido)
-    pedido_data.place(x=140, y=5, width=320, height=20)
+    pedido_data.place(x=70, y=5, width=320, height=20)
 
-    Label(fr_pedido, text="Valor:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=35, width=130, height=20)
+    Label(fr_pedido, text="Valor:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=35, width=60, height=20)
     pedido_valor= Entry(fr_pedido)
-    pedido_valor.place(x=140, y=35, width=320, height=20)
+    pedido_valor.place(x=70, y=35, width=320, height=20)
 
-    Label(fr_pedido, text="Prazo (DD-MM-YYYY):", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=70, width=130, height=20)
+    Label(fr_pedido, text="Prazo:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=70, width=60, height=20)
     pedido_prazo= Entry(fr_pedido)
-    pedido_prazo.place(x=140, y=70, width=320, height=20)
+    pedido_prazo.place(x=70, y=70, width=320, height=20)
 
-    Label(fr_pedido, text="Status:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=105, width=130, height=20)
+    Label(fr_pedido, text="Status:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=105, width=60, height=20)
     pedido_status= ttk.Combobox(fr_pedido, values=lista_status)
-    pedido_status.place(x=140, y=105, width=320, height=20)
+    pedido_status.place(x=70, y=105, width=320, height=20)
     pedido_status.set("Aberto")
 
-    Label(fr_pedido, text="Itens:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=140, width=130, height=20)
+    Label(fr_pedido, text="Itens:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=140, width=60, height=20)
     pedido_itens= Text(fr_pedido)
-    pedido_itens.place(x=140, y=140, width=320, height=150)
+    pedido_itens.place(x=70, y=140, width=320, height=100)
 
-    Label(fr_pedido, text="Obs:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=305, width=130, height=20)
+    Label(fr_pedido, text="Obs:", background="#c8c8d9", foreground="#009", anchor=E).place(x=5, y=255, width=60, height=20)
     pedido_obs= Text(fr_pedido)
-    pedido_obs.place(x=140, y=305, width=320, height=150)
+    pedido_obs.place(x=70, y=255, width=320, height=100)
 
     ## Botões
 
     def validar_Inteiro(valor):
         return valor.isdigit()
 
-    def validar_data(data: str) -> bool:
-        try:
-            # Tenta converter a string para o formato DD-MM-YYYY
-            datetime.datetime.strptime(data, '%d-%m-%Y')
-            return True  # Se não lançar exceção, a data é válida
-        except ValueError:
-            return False  # Se lançar exceção, a data é inválida
+    def validar_data(valor):
+        return "/" in valor
 
     def gravar_Dados():
         global pedidos_cadastrados
-        
+
         print ("Dados Salvos")
-        cliente = "ID" # pegar do cliente 
+        cliente = "cliente ID" # pegar do cliente 
         data= pedido_data.get().strip()
         valor= pedido_valor.get()
         prazo= pedido_prazo.get()
         status= pedido_status.get()
-        itens= pedido_itens.get(1.0, END)
+        itens= pedido_itens.get()
         obs= pedido_obs.get(1.0, END)
 
         dic_validacao = {
@@ -147,17 +144,16 @@ def janela_pedidoNovo(root):
         print (f"Clientes cadastrados: {pedidos_cadastrados}")
         messagebox.showinfo("Cadastro", "Cliente cadastrado com sucesso!")
 
-    btn_Salvar= Button(app, text="Salvar Pedido", command=gravar_Dados)
+    btn_Salvar= Button(app, text="Cancelar Pedido", command=gravar_Dados)
     btn_Salvar.place(x=970, y=620, width=100, height=20)
 
 
     def cancelar():
-        messagebox.showwarning("Atenção","ATENÇÂO!!!\nTodo dado não salvo será perdido.")
         confirmar= messagebox.askyesno("Cancelar o Cadastro", "Deseja mesmo cancelar?")
         if confirmar == True:
             app.destroy()
 
-    btn_Cancelar= Button(app, text="Cancelar", command=cancelar)
+    btn_Cancelar= Button(app, text="Voltar", command=cancelar)
     btn_Cancelar.place(x=880, y=620, width=80, height=20)
 
 

@@ -26,7 +26,7 @@ Sugestões de melhoria são sempre bem-vindas!
 
 ##  Requisitos
 
-- Python
+- Python (versão 3.12.8 recomendada)
 
 ##  Instalação
 
@@ -52,7 +52,7 @@ Sugestões de melhoria são sempre bem-vindas!
 
 ##  Melhorias Futuras
 
-- Adicionar um baco de dados SQLite para armazenar as informações.
+- Adicionar um banco de dados SQLite para armazenar as informações.
 - Geração de relatórios.
 
 ##  Contato
@@ -62,3 +62,13 @@ https://github.com/ClezerSimoes
 ---
 
 **Observação:** Este README deve ser atualizado conforme o projeto evolui! 
+
+## Atualizações (ainda não funcional)
+
+-- Ajustes na interface gráfica
+-- Adicionadas funções ao menu file
+-- Adicionado janela para atualizar pedido
+-- Adicionado janela para cancelar pedido
+-- Implementado criação de tabelas no SQLite
+-- implementação do cadastro de cliente
+-- Adicionado criação de arquivo para salvar configurações

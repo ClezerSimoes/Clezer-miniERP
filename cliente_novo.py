@@ -1,9 +1,12 @@
 from tkinter import *
 from tkinter import messagebox
+import files
+import os
+import json
 
 
-def janela_clienteNovo():
-    app = Tk()
+def janela_clienteNovo(root):
+    app = Toplevel(root)
     app.title ("Clezer - miniERP")
     app.geometry ("1080x720")
     app.configure(background="#dde")
@@ -91,8 +94,6 @@ def janela_clienteNovo():
         return "@" in valor and "." in valor
 
     def gravar_Dados():
-        global clientes_cadastrados
-
         print ("Dados Salvos")
         nome= interface_Nome.get().strip()
         documento= interface_Documento.get()
@@ -135,19 +136,25 @@ def janela_clienteNovo():
                 messagebox.showerror("Erro", f"Campo inválido: {campo}")
                 return
 
-        clientes_cadastrados.append(dic_dados)
-        print (f"Clientes cadastrados: {clientes_cadastrados}")
+        root_path = os.path.dirname(__file__)
+        config_path = os.path.join(root_path, "config.json")
+
+        with open(config_path,"r", encoding="utf-8") as config_file:
+            config_list = json.load(config_file)
+        dt_base_path = config_list.get("db_path")
+
+        files.Tabela_cliente_insert(dt_base_path, nome, documento, telefone, email, rua, numero, cidade, estado, cep, obs)
         messagebox.showinfo("Cadastro", "Cliente cadastrado com sucesso!")
 
-    btn_Salvar= Button(app, text="Salvar Cliente", command=gravar_Dados)
+    btn_Salvar= Button(app, text="Cadastrar Cliente", command=gravar_Dados)
     btn_Salvar.place(x=970, y=650, width=100, height=20)
 
 
     def cancelar():
         messagebox.showwarning("Atenção","ATENÇÂO!!!\nTodo dado não salvo será perdido.")
         confirmar= messagebox.askyesno("Cancelar o Cadastro", "Deseja mesmo cancelar?")
-        if confirmar == TRUE:
-            app.quit()
+        if confirmar == True:
+            app.destroy()
 
     btn_Cancelar= Button(app, text="Cancelar", command=cancelar)
     btn_Cancelar.place(x=880, y=650, width=80, height=20)

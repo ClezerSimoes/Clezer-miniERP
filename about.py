@@ -5,10 +5,10 @@ import os
 import webbrowser
 
 
-def janela_about():
-    about_app = Tk()
+def janela_about(root):
+    about_app = Toplevel(root)
     about_app.title ("Clezer - miniERP")
-    about_app.geometry ("1080x720")
+    about_app.geometry ("720x480")
     about_app.configure(background="#dde")
 
     def abrir_github():
@@ -42,10 +42,10 @@ def janela_about():
     sobre.pack()
 
     gh_page1= Label (about_app, text="link para minha page no Github:", background="#dde", font=("Arial", 12))
-    gh_page1.place(x=330, y=271)
+    gh_page1.place(x=130, y=271)
 
     gh_page2= Label (about_app, text="github.com/ClezerSimoes", background="#dde", fg="blue", font=("Arial", 12))
-    gh_page2.place(x=560, y=271)
+    gh_page2.place(x=360, y=271)
 
     gh_page2.bind("<Button-1>", lambda e: abrir_github())
     gh_page2.bind("<Enter>", cursor_ao_passar)
