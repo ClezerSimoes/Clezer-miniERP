@@ -16,13 +16,12 @@ Sugestões de melhoria são sempre bem-vindas!
 
 ##  Funcionalidades
 
-- Até o momento estou trabalhando na interface, não está funcional. 
-- Segue as funcionalidades que pretendo adicionar em breve:
+Até o momento estou trabalhando na interface, ainda não está totalmente funcional. 
+O que já está funcional:
 
+- criação de tabela de clientes e pedidos SQLite
 - Cadastro de clientes
-- Registro de pedidos
-- Listagem e gerenciamento de clientes e pedidos
-- Histórico de pedidos
+- Gerenciamento de clientes
 
 ##  Requisitos
 
@@ -75,3 +74,4 @@ https://github.com/ClezerSimoes
 - validação de entrada para telefone, e-mails e documentos duplicados
 - Janela para listagem de pedidos
 - funcionalidaes para cadastro de pedidos
+- Seleção de idioma
