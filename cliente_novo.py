@@ -6,10 +6,11 @@ import json
 
 
 def janela_clienteNovo(root):
-    app = Toplevel(root)
-    app.title ("Clezer - miniERP")
-    app.geometry ("1080x720")
-    app.configure(background="#dde")
+    new_client_app = Toplevel(root)
+    new_client_app.title ("Clezer - miniERP")
+    new_client_app.geometry ("1080x720")
+    new_client_app.configure(background="#dde")
+    new_client_app.grab_set()
 
     clientes_cadastrados= []
 
@@ -22,21 +23,21 @@ def janela_clienteNovo(root):
     """
     ## Campos 
 
-    fr_titulo1 = Frame(app, background="#fff")
+    fr_titulo1 = Frame(new_client_app, background="#fff")
     fr_titulo1.place(x=0, y=10, width=1080, height=25)
     titulo= Label(fr_titulo1, text= "CADASTRO DE CLIENTES", background="#fff", foreground="#009", font= ("Arial", 12, "bold"))
     titulo.pack(expand=0)
 
-    titulo_cliente= Label(app, text= "DADOS DO CLIENTE", background="#dde", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo_cliente= Label(new_client_app, text= "DADOS DO CLIENTE", background="#dde", foreground="#009", font= ("Arial", 12, "bold"))
     titulo_cliente.place(x=10, y=55)
 
-    titulo_endereco= Label(app, text= "DADOS DO ENDEREÇO", background="#dde", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo_endereco= Label(new_client_app, text= "DADOS DO ENDEREÇO", background="#dde", foreground="#009", font= ("Arial", 12, "bold"))
     titulo_endereco.place(x=515, y=55)
 
-    fr_cliente = Frame(app, background="#c8c8d9", borderwidth=2, relief="groove")
+    fr_cliente = Frame(new_client_app, background="#c8c8d9", borderwidth=2, relief="groove")
     fr_cliente.place(x=10, y=80, width=500, height=500)
 
-    fr_endereco= Frame(app, background="#c8c8d9", borderwidth=2, relief="groove")
+    fr_endereco= Frame(new_client_app, background="#c8c8d9", borderwidth=2, relief="groove")
     fr_endereco.place(x=515, y=80, width=555, height=500)
 
 
@@ -146,18 +147,18 @@ def janela_clienteNovo(root):
         files.Tabela_cliente_insert(dt_base_path, nome, documento, telefone, email, rua, numero, cidade, estado, cep, obs)
         messagebox.showinfo("Cadastro", "Cliente cadastrado com sucesso!")
 
-    btn_Salvar= Button(app, text="Cadastrar Cliente", command=gravar_Dados)
+    btn_Salvar= Button(new_client_app, text="Cadastrar Cliente", command=gravar_Dados)
     btn_Salvar.place(x=970, y=650, width=100, height=20)
 
 
     def cancelar():
-        messagebox.showwarning("Atenção","ATENÇÂO!!!\nTodo dado não salvo será perdido.")
-        confirmar= messagebox.askyesno("Cancelar o Cadastro", "Deseja mesmo cancelar?")
+        confirmar= messagebox.askyesno("Cancelar o Cadastro", "Deseja mesmo cancelar o cadastro?")
         if confirmar == True:
-            app.destroy()
+            new_client_app.grab_release()
+            new_client_app.destroy()
 
-    btn_Cancelar= Button(app, text="Cancelar", command=cancelar)
+    btn_Cancelar= Button(new_client_app, text="Cancelar", command=cancelar)
     btn_Cancelar.place(x=880, y=650, width=80, height=20)
 
 
-    app.mainloop()
+    new_client_app.mainloop()

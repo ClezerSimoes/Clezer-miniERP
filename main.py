@@ -60,10 +60,7 @@ def file_exit():
         main_app.quit()
         main_app.destroy()
 
-def file_new():
-    files.new_file()
-    ## GGRAVA MUDANÇAS NO CONFIG.JSON
- 
+def overwrite_db_path():
     with open(config_file_path, 'r', encoding='utf-8') as config_file:
         config_data = json.load(config_file)
     
@@ -74,20 +71,17 @@ def file_new():
 
     messagebox.showinfo("Sucesso", "Configurações salvas com sucesso")
     print(f"Configuração salva em: {files.db_file_path}")
+
+def file_new():
+    files.new_file()
+    
+    overwrite_db_path()
+ 
 
 def file_open():
     files.open_file()
 
-    with open(config_file_path, 'r', encoding='utf-8') as config_file:
-        config_data = json.load(config_file)
-    
-    lng = config_data.get("language")
-    
-    with open(config_file_path, 'w', encoding='utf-8') as config_file:
-        json.dump({"db_path": files.db_file_path, "language": lng}, config_file, indent=4)
-
-    messagebox.showinfo("Sucesso", "Configurações salvas com sucesso")
-    print(f"Configuração salva em: {files.db_file_path}")
+    overwrite_db_path()
 
 def language():
     files.janela_language(main_app)
@@ -98,7 +92,7 @@ def client_new():
     cliente_novo.janela_clienteNovo(main_app)
 
 def client_list():
-    cliente_lista.janela_clienteLista(main_app)
+    cliente_lista.janela_client_list(main_app)
 
 def client_update():
     cliente_update.janela_clienteUP(main_app)

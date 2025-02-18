@@ -7,23 +7,22 @@ import json
 from datetime import datetime
 
 language_list= ["Portuguese-BR", "Only PT-BR"]
-
-## Verificar se data base existe
-root_path = os.path.dirname(__file__)
-config_path = os.path.join(root_path, "config.json")
 db_file_path = ""
     
+def sql_db_file():
+    ## Path's
+    root_path = os.path.dirname(__file__)
+    config_json = os.path.join(root_path, "config.json")
+
+    with open (config_json, "r", encoding="utf-8") as config_file:
+        config_dict = json.load(config_file)
+    
+    return config_dict.get("db_path")
+
 ## NEW FILE FUNCTION
 
 def new_file():
     global db_file_path
-
-    ##salva o caminho atual se nenhum arquivo for selecionado
-    if os.path.exists(config_path):
-        with open(config_path, 'r', encoding='utf-8') as config_file:
-            config_data = json.load(config_file)
-        
-        
 
     # Abre uma caixa de diálogo para o usuário escolher o local e nome do arquivo
     db_file = filedialog.asksaveasfilename(defaultextension=".db", filetypes=[("SQLite Database", "*.db")])
@@ -71,42 +70,18 @@ def new_file():
             conn.commit()
             conn.close()
 
-            # ## GGRAVA MUDANÇAS NO CONFIG.JSON
-
-            # root_file= os.path.dirname(__file__)
-            # path_json = os.path.join(root_file, "config.json")  # Forma segura de criar o caminhow
-    
-            
-            # with open(path_json, 'r', encoding='utf-8') as config_file:
-            #     config_data = json.load(config_file)
-            
-            # lng = config_data.get("language")
-            
-            # with open(path_json, 'w', encoding='utf-8') as config_file:
-            #     json.dump({"db_path": db_file_path, "language": lng}, config_file, indent=4)
-
-            # messagebox.showinfo("Sucesso", "Configurações salvas com sucesso")
-            # print(f"Configuração salva em: {db_file_path}")
-            
             # Mostra uma mensagem de sucesso
             messagebox.showinfo("Sucesso", f"Bando de dados {db_file} criado com sucesso!")
         except sqlite3.Error as e:
             messagebox.showerror("Erro", f"Erro ao criar o banco de dados: {e}")
     else:
-        ##retorna o caminho salvo se nenhum arquivo for selecionado
-        db_file_path = config_data.get("db_path")
+        db_file_path = sql_db_file()
         messagebox.showwarning("Aviso", "Nenhum arquivo foi selecionado.")
 
 ## OPEN FILE FUNCTION 
 
 def open_file():
     global db_file_path
-    
-    ##salva o caminho atual se nenhum arquivo for selecionado
-
-    if os.path.exists(config_path):
-        with open(config_path, 'r', encoding='utf-8') as config_file:
-            config_data = json.load(config_file)
 
     # Abre uma caixa de diálogo para o usuário escolher o arquivo .db
     db_file = filedialog.askopenfilename(defaultextension=".db", filetypes=[("SQLite Database", "*.db")])
@@ -132,9 +107,7 @@ def open_file():
         except sqlite3.Error as e:
             messagebox.showerror("Erro", f"Erro ao abrir o banco de dados: {e}")
     else:
-        ## retorna ao caminho salvo  se nenhum arquivo for selecionado
-
-        db_file_path = config_data.get("db_path")
+        db_file_path = sql_db_file()
         messagebox.showwarning("Aviso", "Nenhum arquivo foi selecionado.")
                                
 ## BACKUP FUNCTION
@@ -287,6 +260,7 @@ def Tabela_cliente_insert(dt_base_path, tb_nome, tb_documento, tb_telefone, tb_e
 
     conn.commit()
     conn.close()
+
 
 def Tabela_pedido_insert(dt_base_path, tb_client_id, tb_data, tb_valor, tb_prazo, tb_itens, tb_status, tb_obs):
     conn = sqlite3.connect(dt_base_path)

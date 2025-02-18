@@ -63,12 +63,15 @@ https://github.com/ClezerSimoes
 
 **Observação:** Este README deve ser atualizado conforme o projeto evolui! 
 
-## Atualizações (ainda não funcional)
+## Atualizações desta versão
 
--- Ajustes na interface gráfica
--- Adicionadas funções ao menu file
--- Adicionado janela para atualizar pedido
--- Adicionado janela para cancelar pedido
--- Implementado criação de tabelas no SQLite
--- implementação do cadastro de cliente
--- Adicionado criação de arquivo para salvar configurações
+- Ajustes na interface gráfica
+- implementação de hieraquia de janelas
+- Adicionado janela para listar os clientes
+- Adicionadas funções de cadastro, listagem, atualização e exclusão de clientes
+
+## Atualizações futuras 
+
+- validação de entrada para telefone, e-mails e documentos duplicados
+- Janela para listagem de pedidos
+- funcionalidaes para cadastro de pedidos
