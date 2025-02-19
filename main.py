@@ -43,7 +43,7 @@ def verify():
 
 ## ABOUT MENU FUNCTIONS
 
-def abrir_github():
+def open_github():
     webbrowser.open("https://github.com/ClezerSimoes")
 
 def fun_about():
@@ -55,8 +55,8 @@ def semcomando():
 ## FILE MENU FUNCTIONS
 
 def file_exit():
-    confirmar= messagebox.askyesno("Exit", "Deseja mesmo sair?")
-    if confirmar == True:
+    confirm= messagebox.askyesno("Exit", "Deseja mesmo sair?")
+    if confirm == True:
         main_app.quit()
         main_app.destroy()
 
@@ -69,15 +69,11 @@ def overwrite_db_path():
     with open(config_file_path, 'w', encoding='utf-8') as config_file:
         json.dump({"db_path": files.db_file_path, "language": lng}, config_file, indent=4)
 
-    messagebox.showinfo("Sucesso", "Configurações salvas com sucesso")
-    print(f"Configuração salva em: {files.db_file_path}")
-
 def file_new():
     files.new_file()
     
     overwrite_db_path()
  
-
 def file_open():
     files.open_file()
 
@@ -92,13 +88,15 @@ def client_new():
     cliente_novo.janela_clienteNovo(main_app)
 
 def client_list():
-    cliente_lista.janela_client_list(main_app)
+    janela_deletar = lambda: cliente_delete.janela_deleteCliente (main_app, cliente_lista.id_selected)
+    janela_atualizar = lambda: cliente_update.janela_clienteUP (main_app, cliente_lista.id_selected)
+    cliente_lista.janela_client_list(main_app, janela_deletar, janela_atualizar)
 
-def client_update():
-    cliente_update.janela_clienteUP(main_app)
+def client_update_func():
+    cliente_update.janela_clienteUP(main_app, None)
 
 def client_delete():
-    cliente_delete.janela_deleteCliente(main_app)
+    cliente_delete.janela_deleteCliente(main_app, None)
 
 ## ORDERS MENU FUNCTIONS
 
@@ -106,13 +104,15 @@ def order_new():
     pedido_novo.janela_pedidoNovo(main_app)
 
 def order_list():
-    pedido_lista.janela_pedidoLista(main_app)
+    janela_pedidos_deletar = lambda: pedido_cancelar.janela_pedido_delete(main_app, pedido_lista.id_selected)
+    janela_pedidos_atualizar = lambda: pedido_update.janela_pedidoUP(main_app, pedido_lista.id_selected)
+    pedido_lista.janela_order_list(main_app, janela_pedidos_deletar, janela_pedidos_atualizar)
 
 def order_update():
-    pedido_update.janela_pedidoUP(main_app)
+    pedido_update.janela_pedidoUP(main_app, None)
 
 def order_cancel():
-    pedido_cancelar.janela_pedidoCancelar(main_app)
+    pedido_cancelar.janela_pedido_delete(main_app, None)
 
 
 ## MENU
@@ -132,7 +132,7 @@ menu_bar.add_cascade(label="File", menu=file_menu)
 clients_menu = Menu(menu_bar, tearoff=0)
 clients_menu.add_command(label="New Client", command=client_new)
 clients_menu.add_command(label="Client List", command=client_list)
-clients_menu.add_command(label="Update Client", command=client_update)
+clients_menu.add_command(label="Update Client", command=client_update_func)
 clients_menu.add_separator()
 clients_menu.add_command(label="Delete Client", command=client_delete)
 menu_bar.add_cascade(label="Clients", menu=clients_menu)
@@ -146,7 +146,7 @@ orders_menu.add_command(label="Cancel Order", command=order_cancel)
 menu_bar.add_cascade(label="Orders", menu=orders_menu)
 
 help_menu = Menu(menu_bar, tearoff=0)
-help_menu.add_command(label="My Github Page", command=abrir_github)
+help_menu.add_command(label="My Github Page", command=open_github)
 help_menu.add_command(label="About the program...", command=fun_about)
 menu_bar.add_cascade(label="Help", menu=help_menu)
 

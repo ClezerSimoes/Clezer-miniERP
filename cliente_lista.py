@@ -3,7 +3,10 @@ from tkinter import ttk, messagebox
 import sqlite3
 import files
 
-def janela_client_list(root):
+
+id_selected = 15
+def janela_client_list(root, janela_atualizar, janela_deletar):
+
     client_list_app = Toplevel(root)
     client_list_app.title("Lista de Clientes")
     client_list_app.geometry("1080x720")
@@ -12,7 +15,7 @@ def janela_client_list(root):
 
     fr_titulo1 = Frame(client_list_app, background="#fff")
     fr_titulo1.place(x=0, y=10, width=1080, height=25)
-    titulo= Label(fr_titulo1, text= "LISTA DE CLIENTES CADASTRADOS", background="#fff", foreground="#009", font= ("Arial", 12, "bold"))
+    titulo= Label(fr_titulo1, text= "LISTA DE CLIENTES", background="#fff", foreground="#009", font= ("Arial", 12, "bold"))
     titulo.pack(expand=0)
 
     fr_list = Frame(client_list_app, background="#c8c8d9", borderwidth=2, relief="groove")
@@ -118,11 +121,36 @@ def janela_client_list(root):
 
     listar_clientes()
 
+    # MOUSE POPUP MENU 
+    def teste():
+        print("ok")
+
+    def show_popup(event):
+        global id_selected
+
+        item = tree.identify_row(event.y)
+        if item:
+            tree.selection_set(item)
+            menu_popup.post(event.x_root, event.y_root)
+            
+            for campo in tree.selection():
+                coluna_id = tree.identify_column(event.x)  # Identifica a coluna
+                coluna_index = int(coluna_id[1:]) - 1  # Converte para índice
+                id_selected = tree.item(campo, "values")[0]  # Pega o ID do cliente
+
+    menu_popup = Menu(client_list_app, tearoff=0)
+    menu_popup.add_command(label="Visualizar",command=janela_deletar)
+    menu_popup.add_command(label="Remover",command=janela_atualizar)
+    
+    tree.bind("<Button-3>", show_popup)
+
     # BUTTONS
     btn_listar = Button(client_list_app, text="Listar Clientes", bg="green", fg="white", font=("Arial", 9, "bold"), command=listar_clientes)
     btn_listar.place(x=380, y=50, width=90, height=20)
 
     def voltar():
+        global id_selected
+        id_selected = 0
         client_list_app.grab_release()
         client_list_app.destroy()
 

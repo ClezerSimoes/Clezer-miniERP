@@ -69,7 +69,7 @@ def new_file():
             # Commitando as mudanças
             conn.commit()
             conn.close()
-
+            
             # Mostra uma mensagem de sucesso
             messagebox.showinfo("Sucesso", f"Bando de dados {db_file} criado com sucesso!")
         except sqlite3.Error as e:
@@ -142,6 +142,7 @@ def file_config_verify(root, file_path):
         inicialization_app.title ("Clezer - miniERP")
         inicialization_app.geometry ("580x720")
         inicialization_app.configure(background="#dde")
+        inicialization_app.grab_set()
         
         fr_titulo1 = Frame(inicialization_app, background="#fff")
         fr_titulo1.place(x=0, y=10, width=580, height=25)
@@ -151,7 +152,7 @@ def file_config_verify(root, file_path):
         fr_init = Frame(inicialization_app, background="#c8c8d9", borderwidth=2, relief="groove")
         fr_init.place(x=10, y=80, width=560, height=500)
 
-        inicializcao = Label(
+        inicialization = Label(
             fr_init,
             text="Parece que essa é a primeira vez que você inicializa o Clezer - miniERP ",
             background="#c8c8d9", 
@@ -159,7 +160,7 @@ def file_config_verify(root, file_path):
             anchor=W, 
             font=("Arial", 10)
         )
-        inicializcao.place(x=10, y=10, width=500, height=25)
+        inicialization.place(x=10, y=10, width=500, height=25)
 
         language = Label(
             fr_init, 
@@ -217,6 +218,7 @@ def file_config_verify(root, file_path):
                     json.dump({"db_path": db_file_path, "language": lng}, config_file, indent=4)
                 messagebox.showinfo("Sucesso", "Configurações salvas com sucesso")
                 print(f"Configuração salva em: {config_path}")  # Mensagem de depuração
+                inicialization_app.grab_release()
                 inicialization_app.destroy()
             except Exception as e:
                 messagebox.showerror("Erro", "Erro ao salvar as configurações!!!")
@@ -226,17 +228,36 @@ def file_config_verify(root, file_path):
         def config_cancel():
             confirmar= messagebox.askyesno("Cancelar Configuração", "Deseja mesmo cancelar e fechar o programa?")
             if confirmar == True:
-                inicialization_app.destroy()
+                inicialization_app.quit()
 
-        btn_create = Button(fr_init, text="Criar novo BC", command=new_file)
-        btn_create.place(x=440, y=200, width=100, height=20)
         create_path = Entry(fr_init)
         create_path.place(x=10, y=200, width=420, height=20)
-    
-        btn_load = Button(fr_init, text="Carregar BC", command=open_file)
-        btn_load.place(x=440, y=230, width=100, height=20)
+
         load_path = Entry(fr_init)
         load_path.place(x=10, y=230, width=420, height=20)
+
+        def btn_create_func():
+            global db_file_path
+            new_file()
+            db_file_path 
+            load_path.delete(0, END)
+            create_path.delete(0, END)
+            create_path.insert(0, db_file_path)
+
+        def btn_open_func():
+            global db_file_path
+            open_file()
+            db_file_path 
+            create_path.delete(0, END)
+            load_path.delete(0, END)
+            load_path.insert(0, db_file_path)
+        btn_create = Button(fr_init, text="Criar novo BC", command=btn_create_func)
+        btn_create.place(x=440, y=200, width=100, height=20)
+    
+    
+        btn_load = Button(fr_init, text="Carregar BC", command=btn_open_func)
+        btn_load.place(x=440, y=230, width=100, height=20)
+        
 
         btn_cancel = Button(fr_init, text="Cancelar", command=config_cancel)
         btn_cancel.place(x=10, y=400, width=100, height=20)
@@ -326,8 +347,8 @@ def janela_language(root):
 
 
     def config_cancel():
-        confirmar= messagebox.askyesno("Cancelar Configuração", "Deseja mesmo cancelar?")
-        if confirmar == True:
+        confirm= messagebox.askyesno("Cancelar Configuração", "Deseja mesmo cancelar?")
+        if confirm == True:
             language_app.destroy()
 
     btn_cancel = Button(fr_init, text="Cancelar", command=config_cancel)

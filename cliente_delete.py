@@ -21,7 +21,7 @@ estado = ""
 cep = 0
 obs = ""
 
-def janela_deleteCliente(root):
+def janela_deleteCliente(root, list_id):
     app = Toplevel(root)
     app.title ("Clezer - miniERP")
     app.geometry ("500x450")
@@ -102,7 +102,6 @@ def janela_deleteCliente(root):
         Label(fr_delete1, text="", background="#fff", foreground="#009", anchor=W).place(x=109, y=235, width=341, height=20)
         Label(fr_delete1, text="", background="#fff", foreground="#009", anchor=W).place(x=109, y=260, width=341, height=20)
     
-    campo_branco()
 
     ## BUTTONS
 
@@ -113,7 +112,7 @@ def janela_deleteCliente(root):
         print(dt_base_path)
 
         if len(pesquisa) != 0 and pesquisa != "Digite aqui...":
-            confirmar = messagebox.askyesno("Deleta", "Deseja mesmo deletar esse cliente?")
+            confirmar = messagebox.askyesno("Deleta", f"Deseja mesmo deletar {nome}?")
             if confirmar == True:
                 if filtro == "ID":
                     conn = sqlite3.connect(dt_base_path)
@@ -145,6 +144,8 @@ def janela_deleteCliente(root):
             messagebox.showinfo("Erro", "Selecione um cliente para deletar.")
 
     def voltar():
+        global client_id
+        client_id = 0
         app.grab_release()
         app.destroy()
 
@@ -191,9 +192,11 @@ def janela_deleteCliente(root):
 
                 conn.close()
             except sqlite3.Error as e:
+                atualizar_busca.delete(0, END)
                 campo_branco()
                 messagebox.showinfo("Erro", f"Erro no banco de dados: {e}")
             except:
+                atualizar_busca.delete(0, END)
                 campo_branco()
                 messagebox.showinfo("Erro", "Cliente não encontrado.")
 
@@ -220,9 +223,11 @@ def janela_deleteCliente(root):
 
                 conn.close()
             except sqlite3.Error as e:
+                atualizar_busca.delete(0, END)
                 campo_branco()
                 messagebox.showinfo("Erro", f"Erro no banco de dados: {e}")
             except:
+                atualizar_busca.delete(0, END)
                 campo_branco()
                 messagebox.showinfo("Erro", "Cliente não encontrado.")
 
@@ -249,9 +254,11 @@ def janela_deleteCliente(root):
 
                 conn.close()
             except sqlite3.Error as e:
+                atualizar_busca.delete(0, END)
                 campo_branco()
                 messagebox.showinfo("Erro", f"Erro no banco de dados: {e}")
             except:
+                atualizar_busca.delete(0, END)
                 campo_branco()
                 messagebox.showinfo("Erro", "Cliente não encontrado.")
 
@@ -267,5 +274,43 @@ def janela_deleteCliente(root):
     atualizar_fone.place(x=10, y=400, width=80, height=20)
 
 
+    if list_id == None:
+            campo_branco()
+    else:
+        global client_id, nome, documento, telefone, email, rua, numero, cidade, estado, cep, obs
+        
+        dt_base_path = files.sql_db_file()
+        pesquisa = list_id
+        filtro = "id"
+        atualizar_busca.delete(0, END)
+        atualizar_busca.insert(0, list_id)
+        print(dt_base_path)
+        
+        try:
+            conn = sqlite3.connect(dt_base_path)
+            cursor = conn.cursor()
+            cursor.execute(f'SELECT * FROM clientes WHERE {filtro} = ?', (pesquisa,))
+            cliente_select = cursor.fetchall()
+
+            client_id = cliente_select[0][0]
+            nome = cliente_select[0][1]
+            documento = cliente_select[0][2]
+            telefone = cliente_select[0][3]
+            email = cliente_select[0][4]
+            rua = cliente_select[0][5]
+            numero = cliente_select[0][6]
+            cidade = cliente_select[0][7]
+            estado = cliente_select[0][8]
+            cep = cliente_select[0][9]
+            obs = cliente_select[0][10]
+
+            atualizar_campos()
+
+            conn.close()
+        except sqlite3.Error as e:
+            campo_branco()
+            messagebox.showinfo("Erro", f"Erro no banco de dados: {e}")
+
+    app.protocol("WM_DELETE_WINDOW", voltar)
     app.mainloop()
 

@@ -16,16 +16,19 @@ Sugestões de melhoria são sempre bem-vindas!
 
 ##  Funcionalidades
 
-Até o momento estou trabalhando na interface, ainda não está totalmente funcional. 
-O que já está funcional:
+O software ainda não está pronto, mas todas as funcionalidades iniciais estão implementadas,
+sendo assim, essa é a primeira versão funcional do miniERP e já é possível gerenciar pedidos e 
+clientes. 
 
-- criação de tabela de clientes e pedidos SQLite
-- Cadastro de clientes
-- Gerenciamento de clientes
+## O que já é possível fazer:
+
+- criação de tabela de clientes e pedidos formato SQLite
+- Gerenciamento de clientes (cadastrar, listar, atualizar, deletar)
+- Gerenciamento de pedidos (Registrar, listar, atualizar, deletar)
 
 ##  Requisitos
 
-- Python (versão 3.12.8 recomendada)
+- Python 3.12.8 ou superior (recomendado)
 
 ##  Instalação
 
@@ -45,14 +48,10 @@ O que já está funcional:
 ##  Como Usar
 
 1. Abra o sistema.
-2. Cadastre um novo cliente.
-3. Registre pedidos para os clientes cadastrados.
-4. Consulte a listagem de clientes e pedidos.
-
-##  Melhorias Futuras
-
-- Adicionar um banco de dados SQLite para armazenar as informações.
-- Geração de relatórios.
+2. Carregue ou crie um novo banco de dados (Caso já tenha utilizado o miniERP).
+3. Cadastre um novo cliente.
+4. Registre pedidos para os clientes cadastrados.
+5. Consulte a listagem de clientes e pedidos.
 
 ##  Contato
 
@@ -64,14 +63,19 @@ https://github.com/ClezerSimoes
 
 ## Atualizações desta versão
 
-- Ajustes na interface gráfica
-- implementação de hieraquia de janelas
-- Adicionado janela para listar os clientes
-- Adicionadas funções de cadastro, listagem, atualização e exclusão de clientes
+- Ajustes na interface gráfica.
+- Adicionada janela para listar os pedidos.
+- Implementadas funções de cadastro, listagem, atualização e exclusão de pedidos.
+- Implementação de menu ao clicar com botão direito nas listas.
+- Fix: Clientes não ficam mais selecionados mesmo após fechar as janelas.
+- Fix: Caminho do arquivo agora aparece ao carregar ou criar uma nova tabela.
 
 ## Atualizações futuras 
 
-- validação de entrada para telefone, e-mails e documentos duplicados
-- Janela para listagem de pedidos
-- funcionalidaes para cadastro de pedidos
-- Seleção de idioma
+- Correção de bugs.
+- validação de entrada para telefone, e-mails e documentos duplicados.
+- Atualizar os campos assim que um cliente/pedido for atualizado.
+- Seleção de idioma.
+- Cadastro de itens.
+- Geração de relatórios.
+- altererar interface para expandir/contrair com a janela.

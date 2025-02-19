@@ -17,7 +17,7 @@ estado = ""
 cep = 0
 obs = ""
 
-def janela_clienteUP(root):
+def janela_clienteUP(root, list_id):
     global updt_app
     updt_app = Toplevel(root)
     updt_app.title ("Clezer - miniERP")
@@ -29,7 +29,6 @@ def janela_clienteUP(root):
         updt_app.grab_release()
         updt_app.destroy()
 
-    clientes_cadastrados= []
     lista_opcao= ["ID", "Documento", "Nome"]
 
     ## Campos 
@@ -96,8 +95,6 @@ def janela_clienteUP(root):
         Label(fr_atualizar1, text="", background="#fff", foreground="#009", anchor=W).place(x=109, y=260, width=285, height=20)
         Label(fr_atualizar1, text="", background="#fff", foreground="#009", anchor=W).place(x=109, y=285, width=285, height=100)
 
-    campo_branco()
-
     def func_atualizar_campos():
         Label(fr_atualizar1, text=client_id, background="#fff", foreground="#009", anchor=W).place(x=109, y=25, width=50, height=20)
         Label(fr_atualizar1, text=nome, background="#fff", foreground="#009", anchor=W).place(x=109, y=50, width=285, height=20)
@@ -141,9 +138,13 @@ def janela_clienteUP(root):
 
             conn.close()
         except sqlite3.Error as e:
+            client_id=0
+            atualizar_busca.delete(0, END)
             campo_branco()
             messagebox.showinfo("Erro", f"Erro no banco de dados: {e}")
         except:
+            client_id=0
+            atualizar_busca.delete(0, END)
             campo_branco()
             messagebox.showinfo("Erro", "Cliente não encontrado.")
 
@@ -221,104 +222,89 @@ def janela_clienteUP(root):
     atualizar_button= Button(updt_app, text="Buscar", command=buscar)
     atualizar_button.place(x=440, y=50, width=100, height=20)
 
-    def overwrite_nome():
+    def overwrite_geral(campo):
         if client_id!= 0:
-            janela_sobrescrever("nome")
+            janela_sobrescrever(campo)
         else:
             messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
 
-    def overwrite_doc():
-        if client_id!= 0:
-            janela_sobrescrever("documento")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_fone():
-        if client_id!= 0:
-            janela_sobrescrever("telefone")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_email():
-        if client_id!= 0:
-            janela_sobrescrever("email")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_rua():
-        if client_id!= 0:
-            janela_sobrescrever("rua")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_numero():
-        if client_id!= 0:
-            janela_sobrescrever("numero")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_cidade():
-        if client_id!= 0:
-            janela_sobrescrever("cidade")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_estado():
-        if client_id!= 0:
-            janela_sobrescrever("estado")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_cep():
-        if client_id!= 0:
-            janela_sobrescrever("cep")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    def overwrite_obs():
-        if client_id!= 0:
-            janela_sobrescrever("obs")
-        else:
-            messagebox.showinfo("Erro", "Você precisa selecionar um cliente!")
-
-    atualizar_nome= Button(fr_atualizar1, text="Atualizar Nome", command=overwrite_nome)
+    atualizar_nome= Button(fr_atualizar1, text="Atualizar Nome", command=lambda: overwrite_geral("nome"))
     atualizar_nome.place(x=400, y=50, width=120, height=20)
 
-    atualizar_doc= Button(fr_atualizar1, text="Atualizar Documento", command=overwrite_doc)
+    atualizar_doc= Button(fr_atualizar1, text="Atualizar Documento", command=lambda: overwrite_geral("documento"))
     atualizar_doc.place(x=400, y=75, width=120, height=20)
 
-    atualizar_fone= Button(fr_atualizar1, text="Atualizar Telefone", command=overwrite_fone)
+    atualizar_fone= Button(fr_atualizar1, text="Atualizar Telefone", command=lambda: overwrite_geral("telefone"))
     atualizar_fone.place(x=400, y=100, width=120, height=20)
 
-    atualizar_email= Button(fr_atualizar1, text="Atualizar E-mail", command=overwrite_email)
+    atualizar_email= Button(fr_atualizar1, text="Atualizar E-mail", command=lambda: overwrite_geral("email"))
     atualizar_email.place(x=400, y=125, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Rua", command=overwrite_rua)
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Rua", command=lambda: overwrite_geral("rua"))
     atualizar_endereco.place(x=400, y=160, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Número", command=overwrite_numero)
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Número", command=lambda: overwrite_geral("numero"))
     atualizar_endereco.place(x=400, y=185, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Cidade", command=overwrite_cidade)
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Cidade", command=lambda: overwrite_geral("cidade"))
     atualizar_endereco.place(x=400, y=210, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Estado", command=overwrite_estado)
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Estado", command=lambda: overwrite_geral("estado"))
     atualizar_endereco.place(x=400, y=235, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar CEP", command=overwrite_cep)
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar CEP", command=lambda: overwrite_geral("cep"))
     atualizar_endereco.place(x=400, y=260, width=120, height=20)
 
-    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Obs.", command=overwrite_obs)
+    atualizar_endereco= Button(fr_atualizar1, text="Atualizar Obs.", command=lambda: overwrite_geral("obs"))
     atualizar_endereco.place(x=400, y=285, width=120, height=20)
 
     def voltar():
-        confirmar= messagebox.askyesno("Cancelar", "Deseja mesmo cancelar e voltar?")
-        if confirmar == True:
-            fechar_janela()
+        global client_id
+        client_id = 0
+        fechar_janela()
 
     atualizar_fone= Button(updt_app, text="Voltar", command=voltar)
     atualizar_fone.place(x=460, y=500, width=80, height=20)
 
+    ## ATUALIZAR CAMPOS
+    
+    if list_id == None:
+            campo_branco()
+    else:
+        global client_id, nome, documento, telefone, email, rua, numero, cidade, estado, cep, obs
+        
+        dt_base_path = files.sql_db_file()
+        pesquisa = list_id
+        filtro = "id"
+        atualizar_busca.delete(0, END)
+        atualizar_busca.insert(0, list_id)
+        print(dt_base_path)
+        
+        try:
+            conn = sqlite3.connect(dt_base_path)
+            cursor = conn.cursor()
+            cursor.execute(f'SELECT * FROM clientes WHERE {filtro} = ?', (pesquisa,))
+            cliente_select = cursor.fetchall()
 
+            client_id = cliente_select[0][0]
+            nome = cliente_select[0][1]
+            documento = cliente_select[0][2]
+            telefone = cliente_select[0][3]
+            email = cliente_select[0][4]
+            rua = cliente_select[0][5]
+            numero = cliente_select[0][6]
+            cidade = cliente_select[0][7]
+            estado = cliente_select[0][8]
+            cep = cliente_select[0][9]
+            obs = cliente_select[0][10]
+
+            func_atualizar_campos()
+
+            conn.close()
+        except sqlite3.Error as e:
+            campo_branco()
+            messagebox.showinfo("Erro", f"Erro no banco de dados: {e}")
+
+    updt_app.protocol("WM_DELETE_WINDOW", voltar)
     updt_app.mainloop()
     
